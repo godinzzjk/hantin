@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>聊天室</title>
+		<style type="text/css">
+			/*公共样式*/
+			
+			body,
+			h1,
+			h2,
+			h3,
+			h4,
+			p,
+			ul,
+			ol,
+			li,
+			form,
+			button,
+			input,
+			textarea,
+			th,
+			td {
+				margin: 0;
+				padding: 0
+			}
+			
+			body,
+			button,
+			input,
+			select,
+			textarea {
+				font: 12px/1.5 Microsoft YaHei UI Light, tahoma, arial, "\5b8b\4f53";
+				*line-height: 1.5;
+				-ms-overflow-style: scrollbar
+			}
+			
+			h1,
+			h2,
+			h3,
+			h4 {
+				font-size: 100%
+			}
+			
+			ul,
+			ol {
+				list-style: none
+			}
+			
+			a {
+				text-decoration: none
+			}
+			
+			a:hover {
+				text-decoration: underline
+			}
+			
+			img {
+				border: 0
+			}
+			
+			button,
+			input,
+			select,
+			textarea {
+				font-size: 100%
+			}
+			
+			table {
+				border-collapse: collapse;
+				border-spacing: 0
+			}
+			/*rem*/
+			
+			html {
+				font-size: 62.5%;
+			}
+			
+			body {
+				font: 16px/1.5 "microsoft yahei", 'tahoma';
+			}
+			
+			body .mobile-page {
+				font-size: 1.6rem;
+			}
+			/*浮动*/
+			
+			.fl {
+				float: left;
+			}
+			
+			.fr {
+				float: right;
+			}
+			
+			.clearfix:after {
+				content: '';
+				display: block;
+				height: 0;
+				clear: both;
+				visibility: hidden;
+			}
+			
+			body {
+				background-color: #F5F5F5;
+			}
+			
+			.mobile-page {
+				max-width: 700px;
+			}
+			
+			.mobile-page .admin-img,
+			.mobile-page .user-img {
+				width: 45px;
+				height: 45px;
+			}
+			
+			i.triangle-admin,
+			i.triangle-user {
+				width: 0;
+				height: 0;
+				position: absolute;
+				top: 10px;
+				display: inline-block;
+				border-top: 10px solid transparent;
+				border-bottom: 10px solid transparent;
+			}
+			
+			.mobile-page i.triangle-admin {
+				left: 4px;
+				border-right: 12px solid #fff;
+			}
+			
+			.mobile-page i.triangle-user {
+				right: 4px;
+				border-left: 12px solid #9EEA6A;
+			}
+			
+			.mobile-page .admin-group,
+			.mobile-page .user-group {
+				padding: 6px;
+				display: flex;
+				display: -webkit-flex;
+			}
+			
+			.mobile-page .admin-group {
+				justify-content: flex-start;
+				-webkit-justify-content: flex-start;
+			}
+			
+			.mobile-page .user-group {
+				justify-content: flex-end;
+				-webkit-justify-content: flex-end;
+			}
+			
+			.mobile-page .admin-reply,
+			.mobile-page .user-reply {
+				display: inline-block;
+				padding: 8px;
+				border-radius: 4px;
+				background-color: #fff;
+				margin: 0 15px 12px;
+			}
+			
+			.mobile-page .admin-reply {
+				box-shadow: 0px 0px 2px #ddd;
+			}
+			
+			.mobile-page .user-reply {
+				text-align: left;
+				background-color: #9EEA6A;
+				box-shadow: 0px 0px 2px #bbb;
+			}
+			
+			.mobile-page .user-msg,
+			.mobile-page .admin-msg {
+				width: 75%;
+				position: relative;
+			}
+			
+			.mobile-page .user-msg {
+				text-align: right;
+			}
+			
+			.talk_con {
+				width: 700px;
+				height: 510px;
+				border: 1px solid #666;
+				margin: 50px auto 0;
+				background: #f9f9f9;
+			}
+			
+			.talk_show {
+				width: 680px;
+				height: 420px;
+				border: 1px solid #666;
+				background: #FFFAE8;
+				margin: 10px auto 0;
+				overflow: auto;
+			}
+			
+			.talk_input {
+				width: 580px;
+				margin: 10px auto 0;
+			}
+			
+			.whotalk {
+				width: 80px;
+				height: 30px;
+				float: left;
+				outline: none;
+			}
+			
+			.talk_word {
+				width: 420px;
+				height: 26px;
+				padding: 0px;
+				float: left;
+				margin-left: 10px;
+				outline: none;
+				text-indent: 10px;
+			}
+			
+			.talk_sub {
+				width: 56px;
+				height: 30px;
+				float: left;
+				margin-left: 10px;
+			}
+			
+			.atalk {
+				margin: 10px;
+			}
+			
+			.atalk span {
+				display: inline-block;
+				background: #0181cc;
+				border-radius: 10px;
+				color: #fff;
+				padding: 5px 10px;
+			}
+			
+			.btalk {
+				margin: 10px;
+				text-align: right;
+			}
+			
+			.btalk span {
+				display: inline-block;
+				background: #ef8201;
+				border-radius: 10px;
+				color: #fff;
+				padding: 5px 10px;
+			}
+			.mobile-page #note{
+				font-size: 14px;
+				text-align: center;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+		<div class="talk_con">
+			<div style="padding: 5px 0px 0px 15px;">XX聊天室</div>
+
+			<div class="talk_show" id="words">
+				<div class="mobile-page">
+					
+				</div>
+			</div>
+			<div class="talk_input">
+				<div class="whotalk" id="who">
+				</div>
+				<input type="text" class="talk_word" id="talkwords" value="">
+				<input type="button" value="发送"  id="send" class="talk_sub" id="talksub">
+			</div>
+		</div>
+	</body>
+	<script  type="text/javascript" src="js/jquery-1.12.4.js"></script>
+	<script type="text/javascript">
+		
+	var ws;
+	var userName;
+	var count;
+	
+	$.ajax("/c/users/GetSession",{
+		type:"get",
+		dataType:"json",
+		success:function(user){
+			$("#who").html(user.userName);
+			userName=user.userName;
+			webscoket();
+		}
+	});  
+	
+	
+	$("[id=talkwords]").bind('keyup',function(event){
+		if(event.keyCode=="13"){
+			send();
+		}
+	});
+	
+	$("#send").click(function(){
+		send();
+	});
+	
+	function reconnect(){
+		if (count<10) {
+			$("#reCon").html("自动重连次数"+count);
+			setTimeout(function(){
+				webscoket();
+			},3000)
+			count++;
+		} else{
+			alert("重连超时!");
+			var div=$("<div id='note'>网络异常!</div>");
+			$(".mobile-page").append(div)
+		}
+	};
+	
+	function send(){
+		var txt=$("[type=text]").val();
+		if(ws.readyState==1){
+			ws.send(txt);
+			var div=$("<div class='user-group' ><div class='user-msg'><span class='user-reply'>"+txt+"</span><i class='triangle-user'></i></div><span>"+userName+"</span><img class='user-img' src='images/"+userName+".jpg' /></div>");
+		$(".mobile-page").append(div)
+		}else{
+			alert("客户端已经离线");
+		}
+		$("[type=text]").val("");
+	}
+	
+	//初始化ws
+	function webscoket(){
+	//1、创建引擎(必须是ws协议)
+	if(window.WebSocket){
+		ws=new WebSocket("ws://192.168.191.1:8080/ws/chat/"+userName);
+		//2、绑定事件
+		ws.onopen=function(){
+			console.log("长连接建立成功，可以通讯!")
+			if(ws.readyState==1){
+				ws.send("ping")
+				count=0;
+				$("#reCon").html("");
+			}
+		}
+		ws.onclose=function(){
+			console.log("长连接关闭!");
+			reconnect();
+		}
+		ws.onerror=function(){
+			console.log("通讯异常!")
+		}
+		ws.onmessage=function(e){
+			var msg=e.data;//服务器文本消息
+			var ss=msg.split("%%");
+			if("pong"==ss[0]){
+				var div=$("<div id='note'>"+ss[1]+"加入了聊天室</div>");
+				$(".mobile-page").append(div)
+			}else if("end"==ss[0]){
+				var div=$("<div id='note'>"+ss[1]+"退出了聊天室</div>");
+				$(".mobile-page").append(div)
+			}else{
+				var div=$("<div class='admin-group'><img class='admin-img' src='images/"+ss[0]+".jpg' /><span>"+ss[0]+"</span><div class='admin-msg'><i class='triangle-admin'></i><span class='admin-reply'>"+ss[1]+"</span></div>");
+				$(".mobile-page").append(div)
+			}
+		}
+	}else{
+		alert("不支持WebSocket");
+	}
+	}
+	</script>
+
+</html>
